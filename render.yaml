@@ -14,6 +14,8 @@ services:
         value: free
       - key: WHATSAPP_PHONE_NUMBER_ID
         value: "1390795964111758"
+      - key: WHATSAPP_BUSINESS_ACCOUNT_ID
+        value: "1417692133041819"
       - key: WHATSAPP_VERIFY_TOKEN
         value: rps-verify-123
       - key: GRAPH_API_VERSION
@@ -26,6 +28,17 @@ services:
         value: https://rpsdistributorsinc.com
       - key: BUSINESS_CONTACT
         value: email sales@rpsdistributorsinc.com or call our office
+      # Common-question answers (edit these in Render > Environment anytime)
+      - key: INFO_HOURS
+        value: ""
+      - key: INFO_LOCATION
+        value: ""
+      - key: INFO_SHIPPING
+        value: ""
+      - key: INFO_PAYMENT
+        value: ""
+      - key: INFO_RETURNS
+        value: ""
       # Secrets - Render will ask you to paste these:
       - key: WHATSAPP_TOKEN
         sync: false

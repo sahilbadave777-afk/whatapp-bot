@@ -47,6 +47,21 @@ def mark_read_and_typing(message_id: str) -> None:
         pass
 
 
+def subscribe_app() -> bool:
+    """Tell Meta to send this WhatsApp Business Account's messages to our app (safe to call every start)."""
+    if not (config.WHATSAPP_TOKEN and config.WHATSAPP_BUSINESS_ACCOUNT_ID):
+        return False
+    url = f"https://graph.facebook.com/{config.GRAPH_API_VERSION}/{config.WHATSAPP_BUSINESS_ACCOUNT_ID}/subscribed_apps"
+    try:
+        r = requests.post(url, headers={"Authorization": f"Bearer {config.WHATSAPP_TOKEN}"}, timeout=20)
+        ok = r.status_code < 400 and r.json().get("success") is True
+        log.info("WABA subscribe: %s %s", r.status_code, r.text[:200])
+        return ok
+    except Exception as e:  # noqa: BLE001
+        log.error("WABA subscribe failed: %s", e)
+        return False
+
+
 def valid_signature(raw_body: bytes, header: str | None) -> bool:
     """Rejects fake webhook calls. Skipped only if no app secret is configured (local testing)."""
     if not config.WHATSAPP_APP_SECRET:

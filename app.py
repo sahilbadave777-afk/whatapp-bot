@@ -37,9 +37,21 @@ def agent():
     return _agent
 
 
+@app.on_event("startup")
+def _startup():
+    # Make sure Meta forwards this WhatsApp account's messages to us (fixes "messages never arrive").
+    whatsapp.subscribe_app()
+
+
 @app.get("/")
 def health():
     return {"ok": True, "bot": config.BUSINESS_NAME, "mode": config.BOT_MODE}
+
+
+@app.get("/subscribe")
+def resubscribe():
+    """Open this URL in a browser to re-link the WhatsApp account to the bot."""
+    return {"subscribed": whatsapp.subscribe_app()}
 
 
 @app.get("/webhook")

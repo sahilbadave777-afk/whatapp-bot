@@ -15,6 +15,7 @@ def _get(name: str, default: str | None = None, required: bool = False) -> str:
 # --- WhatsApp Cloud API (Meta) ---
 WHATSAPP_TOKEN = _get("WHATSAPP_TOKEN")              # permanent System User token
 WHATSAPP_PHONE_NUMBER_ID = _get("WHATSAPP_PHONE_NUMBER_ID")
+WHATSAPP_BUSINESS_ACCOUNT_ID = _get("WHATSAPP_BUSINESS_ACCOUNT_ID")  # WABA id; lets the bot subscribe itself on startup
 WHATSAPP_VERIFY_TOKEN = _get("WHATSAPP_VERIFY_TOKEN", "rps-verify-123")
 WHATSAPP_APP_SECRET = _get("WHATSAPP_APP_SECRET")    # used to check Meta's webhook signature
 GRAPH_API_VERSION = _get("GRAPH_API_VERSION", "v26.0")
@@ -42,6 +43,14 @@ BUSINESS_NAME = _get("BUSINESS_NAME", "RPS Distributors Inc.")
 BUSINESS_CONTACT = _get("BUSINESS_CONTACT", "call us or email sales@rpsdistributorsinc.com")
 SHOW_EXACT_STOCK = _get("SHOW_EXACT_STOCK", "false").lower() == "true"  # false = "In stock"/"Out of stock" only
 SEND_PRODUCT_PHOTOS = _get("SEND_PRODUCT_PHOTOS", "true").lower() == "true"
+
+# --- Answers to common customer questions (leave blank to point them to BUSINESS_CONTACT) ---
+INFO_HOURS = _get("INFO_HOURS")          # e.g. "We're open Mon-Fri 8am-5pm and Sat 9am-1pm (Eastern)."
+INFO_LOCATION = _get("INFO_LOCATION")    # e.g. "We're at 123 Main St, Edison, NJ. Pickup is welcome!"
+INFO_SHIPPING = _get("INFO_SHIPPING")    # e.g. "We ship nationwide; local delivery in NJ. Most orders ship same day."
+INFO_PAYMENT = _get("INFO_PAYMENT")      # e.g. "We accept card, Zelle, check and cash. Net-30 for approved accounts."
+INFO_RETURNS = _get("INFO_RETURNS")      # e.g. "Returns accepted within 30 days in original packaging."
+INFO_WEBSITE = _get("INFO_WEBSITE", f"You can browse our full catalog anytime at {PUBLIC_STORE_URL} 🛒")
 MAX_HISTORY_TURNS = int(_get("MAX_HISTORY_TURNS", "12"))
 
 # Test mode: only these numbers get replies (comma-separated, with country code, e.g. 17325551234,17325559876).
